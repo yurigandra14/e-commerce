@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd
+    http://www.liquibase.org/xml/ns/pro
+    http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd">
+
+    <changeSet  author="yuri"  id="20230130-1">
+        <createTable remarks="tabela de skins" tableName="skins">
+
+            <column  name="id"  type="int" autoIncrement="true" remarks="id da skin">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_skin"/>
+            </column>
+
+            <column  name="nomeSkin"  type="varchar(50)" remarks="nome da skin">
+                <constraints nullable="false"/>
+            </column>
+
+            <column  name="skin"  type="blob" remarks="skin">
+                <constraints nullable="false"/>
+            </column>
+
+            <column  name="valor" type="float" remarks="valor da skin">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+
+        <createTable remarks="tabela de usuarios" tableName="usuarios">
+
+            <column  name="id" type="int" autoIncrement="true" remarks="id da skin">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_usuario"/>
+            </column>
+
+            <column  name="usuario"  type="varchar(50)" remarks="nome do usuario">
+                <constraints nullable="false"/>
+            </column>
+
+            <column  name="senha"  type="varchar(32)" remarks="senha do usuario">
+                <constraints nullable="false"/>
+            </column>
+
+            <column  name="adm"  type="boolean" remarks="indica se é administrador">
+                <constraints nullable="false"/>
+            </column>
+
+            <column  name="email"  type="varchar(50)" remarks="email do usuario">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+
+        <createTable remarks="tabela de vendas" tableName="vendas">
+
+            <column  name="id" type="int" autoIncrement="true" remarks="id">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_venda"/>
+            </column>
+
+            <column  name="valor"  type="decimal" remarks="valor total da venda">
+                <constraints nullable="false"/>
+            </column>
+
+            <column  name="id_usuario"  type="int" remarks="id do usuario">
+                <constraints nullable="false" foreignKeyName="fk_skinUsuario_usuario" references="usuarios(id)"/>
+            </column>
+
+        </createTable>
+
+        <createTable remarks="tabela de skins vendidas" tableName="skinVenda">
+
+            <column  name="id" type="int" autoIncrement="true" remarks="id">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_skinVenda"/>
+            </column>
+
+            <column  name="id_skin"  type="int" remarks="id da skin">
+                <constraints nullable="false" foreignKeyName="fk_skinUsuario_skin" references="skins(id)"/>
+            </column>
+
+            <column  name="id_venda"  type="int" remarks="id da venda">
+                <constraints nullable="false" foreignKeyName="fk_venda" references="vendas(id)"/>
+            </column>
+
+        </createTable>
+
+    </changeSet>
+
+</databaseChangeLog>
+
